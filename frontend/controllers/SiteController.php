@@ -15,6 +15,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\bmiResult;
+
 
 /**
  * Site controller
@@ -118,7 +120,9 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionContact()
+
+
+ /*   public function actionContact()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -134,7 +138,42 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
+   }
+*/
+
+
+
+
+
+
+
+
+
+    public function actionContact()
+    {
+        $model = new bmiResult();
+
+        if(Yii::$app->request->post()){
+            $result = $model->calculateBmi($_POST["weight"], $_POST["height"]);
+            return $this->render('contact', [
+                'model' => $model,
+                'result' => $result
+            ]);
+        }
+
+        return $this->render('contact', [
+            'model' => $model,
+            'result' => false,
+        ]);
     }
+
+
+
+
+
+
+
+
 
     /**
      * Displays about page.

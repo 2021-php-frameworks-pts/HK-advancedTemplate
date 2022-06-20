@@ -1,45 +1,32 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap4\ActiveForm $form */
-/** @var \frontend\models\ContactForm $model */
 
-use yii\bootstrap4\Html;
+use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
-use yii\captcha\Captcha;
 
-$this->title = 'Contact';
+$this->title = 'BMI';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
+<div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-    </p>
+    <?php $form = ActiveForm::begin(['id' => 'calculate-bmi']); ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+            <label class="col-lg-3 col-form-label" for="weight">Weight</label>
+            <input type="text" id="weight" name="weight"  />
+            <label class="col-lg-3 col-form-label" for="height">Height</label>
+            <input type="text" id="height" name="height"/>
+            <div class="form-group">
+                <?= Html::submitButton('Calculate BMI', ['class' => 'btn btn-primary', 'name' => 'calculate-bmi']) ?>
+            </div>
 
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+        <?php ActiveForm::end(); ?>
 
-                <?= $form->field($model, 'email') ?>
 
-                <?= $form->field($model, 'subject') ?>
-
-                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-
+        <?php 
+          if($result != false){
+            echo $result; 
+          }?>
+      
 </div>
