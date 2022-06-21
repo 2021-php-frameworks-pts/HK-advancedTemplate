@@ -27,6 +27,6 @@ class bmiResult extends Model
 
 
      public function calculateBmi($weight, $height){
-         return $weight + $height;
+         return $weight / ($height * $height);
      }
 }
